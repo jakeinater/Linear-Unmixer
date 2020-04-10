@@ -23,6 +23,7 @@
  *  * Jake Z		"	   Apr 03 2020     It works now! TODO: investigate the discrepancy between what you set $readings and the amount of space you allocate to the matrices as you forgot to account for the initial data clearing of the title headers in the data. 
  *  * */
 const int readings = 1300;		//note, if the readings specified here is more then the number of readings in file, funky stuff happens, TODO: implent check for this
+const int skip = 50;
 int normalizeVector( gsl_vector *vector )
 {
 	double min = gsl_vector_min( vector );
@@ -48,7 +49,7 @@ int readFileVector( gsl_vector *vector, char *filePath, char *fileName )		//read
 		exit(100);
 	}
 
-	for ( int i = 0; i < 50; i++)		//move past header of read files
+	for ( int i = 0; i < skip; i++)		//move past header of read files
 	{
 		fgets( tmpReading, 19, file );
 	}
@@ -83,7 +84,7 @@ int readFileMatrix( gsl_matrix *matrix, char *filePath, int argc, char *argv[] )
 			fprintf( stderr, "Error, unable to locate a reference data file\n");
 			exit(100);
 		}
-		for ( int i = 0; i < 50; i++)		//move past header of read files
+		for ( int i = 0; i < skip; i++)		//move past header of read files
 		{
 			fgets( tmpReading, 20, file);
 		}

@@ -22,8 +22,8 @@
  *  * Jake Z       Bio. Eng.       Mar 12 2020     Initial version
  *  * Jake Z		"	   Apr 03 2020     It works now! TODO: investigate the discrepancy between what you set $readings and the amount of space you allocate to the matrices as you forgot to account for the initial data clearing of the title headers in the data. 
  *  * */
-const int readings = 1300;		//note, if the readings specified here is more then the number of readings in file, funky stuff happens, TODO: implent check for this
-const int skip = 50;
+const int READINGS = 1300;		//note, if the readings specified here is more then the number of readings in file, funky stuff happens, TODO: implent check for this
+const int SKIP = 50;
 int normalizeVector( gsl_vector *vector )
 {
 	double min = gsl_vector_min( vector );
@@ -49,11 +49,11 @@ int readFileVector( gsl_vector *vector, char *filePath, char *fileName )		//read
 		exit(100);
 	}
 
-	for ( int i = 0; i < skip; i++)		//move past header of read files
+	for ( int i = 0; i < SKIP; i++)		//move past header of read files
 	{
 		fgets( tmpReading, 19, file );
 	}
-	for ( int i = 0; i < readings; i++ )
+	for ( int i = 0; i < READINGS; i++ )
 	{
 		fgets( tmpReading, 19, file );
 	
@@ -84,11 +84,11 @@ int readFileMatrix( gsl_matrix *matrix, char *filePath, int argc, char *argv[] )
 			fprintf( stderr, "Error, unable to locate a reference data file\n");
 			exit(100);
 		}
-		for ( int i = 0; i < skip; i++)		//move past header of read files
+		for ( int i = 0; i < SKIP; i++)		//move past header of read files
 		{
 			fgets( tmpReading, 20, file);
 		}
-		for ( int i = 0; i < readings; i++ ) //fill the ith element of the jth column
+		for ( int i = 0; i < READINGS; i++ ) //fill the ith element of the jth column
 		{
 			fgets( tmpReading, 19, file );
 		
@@ -118,10 +118,10 @@ int main(int argc, char *argv[])
 	int numRefs = argc - 2;
 	//char *filePath = "";
 	char *filePath = "/mnt/c/Users/jakei/OneDrive - McGill University/Year 2/1BIEN210/Group Project/";
-	gsl_vector *muVector = gsl_vector_alloc(readings);
+	gsl_vector *muVector = gsl_vector_alloc(READINGS);
 	gsl_vector *fVector = gsl_vector_alloc(numRefs);
 	gsl_vector *x = gsl_vector_alloc(numRefs);			//TODO RENAME x AND PROBECOMPVECTOR
-	gsl_matrix *refMatrix = gsl_matrix_alloc(readings, numRefs);
+	gsl_matrix *refMatrix = gsl_matrix_alloc(READINGS, numRefs);
 	gsl_matrix *C = gsl_matrix_alloc( numRefs, numRefs );
 	gsl_matrix *Cinverse = gsl_matrix_alloc( numRefs, numRefs );
 	
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
 	gsl_permutation_init(p);			//INITIALISED THE PERMUTATION
 	
 	readFileVector( muVector, filePath, argv[1] ); //call function which reads in values of first arguement file into the vector mu
-	readFileMatrix( refMatrix, filePath, argc, argv ); //obtain matrix of reference vals, (400, 2) in 400 readings w/ 2 probes
+	readFileMatrix( refMatrix, filePath, argc, argv ); //obtain matrix of reference vals, (400, 2) in 400 READINGS w/ 2 probes
 	//normalize values, vector is already normalised
 	normalizeVector( muVector );
 	

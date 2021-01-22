@@ -6,5 +6,6 @@ You can find the meat of the program in the beta.c file.
 Note, you need to install [gsl](https://www.gnu.org/software/gsl/) to use this program.
 You can find the software I used in the spectrometer [here](https://www.theremino.com/en/downloads/automation)
 
-Please feel free to leave constructive criticism and advice! You can email me at zhaojake14@gmail.com
+Please feel free to leave constructive criticism and advice! You can email me at zhaojake14@gmail.com.
+
 [heres](https://youtube.com/playlist?list=PLWZJllFn0WSnx-8hw8GBx-BZZ9quGwBL9) a demo!
